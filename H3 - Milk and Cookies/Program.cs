@@ -13,6 +13,9 @@ namespace H3___Milk_and_Cookies
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddMvc();
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -27,8 +30,9 @@ namespace H3___Milk_and_Cookies
 
             app.UseAuthorization();
 
-
             app.MapControllers();
+
+            app.UseSession();
 
             app.Run();
         }

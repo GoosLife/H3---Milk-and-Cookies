@@ -9,7 +9,9 @@ namespace H3___Milk_and_Cookies.Controllers
         [HttpGet]
         public string Get(string favoriteMilkshake)
         {
-            Response.Cookies.Append("favoriteMilkshake", favoriteMilkshake);
+            CookieOptions options = new CookieOptions();
+            options.Expires = System.DateTime.Now.AddMinutes(5);
+            Response.Cookies.Append("favoriteMilkshake", favoriteMilkshake, options);
             return favoriteMilkshake;
         }
 
@@ -19,11 +21,11 @@ namespace H3___Milk_and_Cookies.Controllers
         {
             if (Request.Cookies["favoriteMilkshake"] == null)
             {
-                Response.StatusCode = 404;
+                Response.StatusCode = 422;
                 return "Ya haven't set a favorite milkshake ya oaf";
             }
 
-            return Request.Cookies["favoriteMilkshake"];
+            return Request.Cookies["favoriteMilkshake"]!;
         }
     }
 }
